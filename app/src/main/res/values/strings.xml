@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">E-Learn</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_cari">Cari</string>
+    <string name="menu_sertif">Sertifikat</string>
+    <string name="menu_Akun">Akun</string>
+</resources>
