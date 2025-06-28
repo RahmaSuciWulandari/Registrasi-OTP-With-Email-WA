@@ -44,7 +44,6 @@ fun Home(navController: NavController) {
     )
 
     Scaffold (
-        bottomBar = { BottomNavBar() },
         //backgroundColor = Color.Transparent,
         modifier = Modifier.fillMaxSize()
     ) { paddingValues ->
@@ -223,58 +222,6 @@ fun ProfileItem(imageUrl: String, title: String, name: String) {
             fontSize = 10.sp,
             color = Color.White,
             textAlign = TextAlign.Center
-        )
-    }
-}
-
-@Composable
-fun BottomNavBar() {
-    val purpleGradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF5B6DD9), Color(0xFF8A7FEF))
-    )
-    Surface(
-        modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-            .fillMaxWidth()
-            .height(56.dp)
-            .clip(RoundedCornerShape(24.dp))
-            .background(brush = purpleGradient),
-        color = Color.Transparent,
-        shadowElevation = 8.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            BottomNavItem(icon = Icons.Default.Home, label = "Beranda", selected = true)
-            BottomNavItem(icon = Icons.Default.Search, label = "Cari", selected = false)
-            BottomNavItem(icon = Icons.Default.CardMembership, label = "Sertifikat", selected = false)
-            BottomNavItem(icon = Icons.Default.Person, label = "Akun", selected = false)
-        }
-    }
-}
-
-@Composable
-fun BottomNavItem(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, selected: Boolean) {
-    val contentColor = if (selected) Color.White else Color.White.copy(alpha = 0.7f)
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(vertical = 4.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            tint = contentColor,
-            modifier = Modifier.size(20.dp)
-        )
-        Text(
-            text = label,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = contentColor
         )
     }
 }

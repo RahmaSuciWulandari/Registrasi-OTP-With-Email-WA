@@ -19,8 +19,13 @@ navigationComposeJvmstubs = "2.9.0"
 retrofit = "2.9.0"
 gson = "2.10.1"
 okhttp = "4.11.0"
+compose-foundation = "1.5.0"
+compose-ui = "1.5.0"
+
 
 [libraries]
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose-foundation" }
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose-ui" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

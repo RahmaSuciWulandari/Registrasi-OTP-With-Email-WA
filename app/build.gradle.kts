@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.ui)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit)

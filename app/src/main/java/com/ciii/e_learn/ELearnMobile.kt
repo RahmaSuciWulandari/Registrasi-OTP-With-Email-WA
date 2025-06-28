@@ -84,9 +84,9 @@ fun ELearnApp(
             composable(Screen.Home.route) {
                 Home(navController)
             }
-//            composable(Screen.Cari.route) {
-//                SearchScreen(navController)
-//            }
+            composable(Screen.Cari.route) {
+                Searchpage(navController)
+            }
 //            composable(Screen.Sertifikat.route) {
 //                CertificateScreen(navController)
 //            }
