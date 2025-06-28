@@ -262,7 +262,7 @@ fun SignUpScreen(
             ) {
                 Text("Sign Up", color = Color.White, fontSize = 16.sp)
             }
-
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
