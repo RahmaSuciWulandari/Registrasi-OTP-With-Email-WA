@@ -46,6 +46,8 @@ fun ELearnApp(
     )
 
     Scaffold(
+        modifier = Modifier.fillMaxSize()
+        .windowInsetsPadding(WindowInsets.systemBars),
         bottomBar = {
             if (currentRoute in routesWithBottomBar) {
                 BottomBar(navController)
@@ -87,12 +89,12 @@ fun ELearnApp(
             composable(Screen.Cari.route) {
                 Searchpage(navController)
             }
-//            composable(Screen.Sertifikat.route) {
-//                CertificateScreen(navController)
-//            }
-//            composable(Screen.Akun.route) {
-//                AccountScreen(navController)
-//            }
+            composable(Screen.Sertifikat.route) {
+                CertificateScreen(navController)
+            }
+            composable(Screen.Akun.route) {
+                AkunScreen(navController)
+            }
             // Tambah halaman lainnya sesuai kebutuhan
         }
     }
@@ -103,10 +105,6 @@ private fun BottomBar(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val purpleGradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF5B6DD9), Color(0xFF8A7FEF))
-    )
-
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -130,60 +128,53 @@ private fun BottomBar(
             title = "Akun",
             icon = Icons.Default.Person,
             screen = Screen.Akun
-        ),
+        )
     )
 
-    Surface(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-            .height(56.dp)
-            .clip(RoundedCornerShape(24.dp))
-            .background(brush = purpleGradient),
-        color = Color.Transparent,
-        shadowElevation = 8.dp
+    NavigationBar(
+        containerColor = Color(0xFF5F7DE8), // Ubah warna background bar
+        contentColor = Color.White,         // Warna ikon dan teks
+        tonalElevation = 8.dp
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            navigationItems.forEach { item ->
-                val selected = currentRoute == item.screen.route
-                val contentColor = if (selected) Color.White else Color.White.copy(alpha = 0.7f)
+        navigationItems.forEach { item ->
+            val selected = currentRoute == item.screen.route
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
-                        .clickable {
-                            if (currentRoute != item.screen.route) {
-                                navController.navigate(item.screen.route) {
-                                    launchSingleTop = true
-                                    restoreState = true
-                                    popUpTo(Screen.Home.route) {
-                                        inclusive = false
-                                    }
-                                }
+            NavigationBarItem(
+                selected = selected,
+                onClick = {
+                    if (!selected) {
+                        navController.navigate(item.screen.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo(Screen.Home.route) {
+                                inclusive = false
                             }
                         }
-                ) {
+                    }
+                },
+                icon = {
                     Icon(
                         imageVector = item.icon,
                         contentDescription = item.title,
-                        tint = contentColor,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(24.dp)
                     )
+                },
+                label = {
                     Text(
                         text = item.title,
                         fontSize = 10.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = contentColor
+                        fontWeight = FontWeight.SemiBold
                     )
-                }
-            }
+                },
+                alwaysShowLabel = true,
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = Color.White,
+                    unselectedIconColor = Color.White.copy(alpha = 0.7f),
+                    selectedTextColor = Color.White,
+                    unselectedTextColor = Color.White.copy(alpha = 0.7f),
+                    indicatorColor = Color(0xFFB2BEF5)
+                )
+            )
         }
     }
 }

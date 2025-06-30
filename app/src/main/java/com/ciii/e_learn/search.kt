@@ -7,6 +7,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 
 
 import androidx.compose.foundation.shape.CircleShape
@@ -37,25 +40,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Searchpage(navController: NavController) {
     val gradientColors = listOf(Color(0xFF5F7DE8), Color(0xFF7B5DB8))
+    //val gradientColors = listOf(Color(0xFF5F7DE8), Color(0xFF3B4FB1))
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color.Transparent
     ) {
-        Box(
+        Column(
             modifier = Modifier
-                .background(brush = Brush.verticalGradient(gradientColors))
+                .background(Color.White)
                 .fillMaxSize()
-                .padding(vertical = 32.dp, horizontal = 20.dp)
+                .padding(horizontal = 20.dp, vertical = 32.dp)
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                SearchBar()
-                Spacer(modifier = Modifier.height(32.dp))
+            SearchBar()
+            Spacer(modifier = Modifier.height(16.dp))
+            // Scrollable grid section
+            Box(modifier = Modifier.weight(1f)) {
                 CatGrid()
             }
         }
@@ -72,7 +76,7 @@ fun SearchBar() {
             .fillMaxWidth()
             .height(48.dp)
             .clip(RoundedCornerShape(50))
-            .background(Color.White.copy(alpha = 0.3f)),
+            .background(Color.LightGray),
         verticalAlignment = Alignment.CenterVertically
     ) {
         BasicTextField(
@@ -81,7 +85,7 @@ fun SearchBar() {
             singleLine = true,
             modifier = Modifier
                 .weight(1f)
-                .background(Color.White)
+                .background(Color.LightGray)
                 .padding(start = 20.dp, top = 12.dp, bottom = 12.dp),
             textStyle = TextStyle(
                 color = Color(0xFF4B5563),
@@ -116,29 +120,18 @@ fun SearchBar() {
 
 @Composable
 fun CatGrid() {
-    val items = List(6) { it }
+    val items = List(20) { it } // Ubah jumlah sesuai data kamu
     val shape = RoundedCornerShape(24.dp)
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalArrangement = Arrangement.spacedBy(24.dp),
+        contentPadding = PaddingValues(bottom = 80.dp)
     ) {
-        for (rowIndex in 0 until 3) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp),
-                horizontalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                for (colIndex in 0 until 2) {
-                    val index = rowIndex * 2 + colIndex
-                    if (index < items.size) {
-                        CatCard(imageRes = R.drawable.oyen, shape = shape)
-                    } else {
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
-                }
-            }
+        items(items) {
+            CatCard(imageRes = R.drawable.course, shape = shape)
         }
     }
 }
@@ -148,6 +141,7 @@ fun CatCard(imageRes: Int, shape: RoundedCornerShape) {
     Column(
         modifier = Modifier
             //.weight(1f)
+            .height(180.dp)
             .border(width = 2.dp, color = Color.Black, shape = shape)
             .clip(shape)
             .background(Color.White)
@@ -156,15 +150,15 @@ fun CatCard(imageRes: Int, shape: RoundedCornerShape) {
     ) {
         Image(
             painter = painterResource(id = imageRes),
-            contentDescription = "Cartoon image of a cat wearing black sunglasses with a confident pose",
-            modifier = Modifier
-                .size(120.dp),
+            contentDescription = "Cartoon image of a cat",
+            modifier = Modifier.size(100.dp),
             contentScale = ContentScale.Fit
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = "Guide to Learn R with\nE-Learn",
             fontWeight = FontWeight.ExtraBold,
+            color = Color.Black,
             fontSize = 10.sp,
             textAlign = TextAlign.Center,
             lineHeight = 12.sp
