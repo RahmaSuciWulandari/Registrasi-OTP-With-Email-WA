@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.ciii.e_learn.R // Pastikan import R dari projectmu
+
 
 @Composable
 fun CertificateScreen(navController: NavController) {
